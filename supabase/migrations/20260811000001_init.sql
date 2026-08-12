@@ -104,3 +104,19 @@ create table goals (
   quarter text not null,
   status text not null default 'active'
 );
+
+-- The Supabase API roles need explicit privileges on these tables; without
+-- them PostgREST answers "permission denied". Guarded per role so the file
+-- also runs on a plain Postgres that lacks the Supabase roles.
+do $$
+declare r text;
+begin
+  foreach r in array array['anon', 'authenticated', 'service_role'] loop
+    if exists (select from pg_roles where rolname = r) then
+      execute format('grant usage on schema public to %I', r);
+      execute format('grant all on all tables in schema public to %I', r);
+      execute format('grant all on all sequences in schema public to %I', r);
+      execute format('alter default privileges in schema public grant all on tables to %I', r);
+    end if;
+  end loop;
+end $$;
