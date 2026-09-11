@@ -13,8 +13,9 @@ import type { AppUser } from "@/lib/types";
  * The one module that supplies the current user. All pages and route
  * handlers read the user from here only.
  *
- * Mode 1 (NEXT_PUBLIC_DEV_AUTH=true): the user comes from a dev cookie set
- * by the two login buttons.
+ * Mode 1 (NEXT_PUBLIC_DEV_AUTH=true and NODE_ENV !== "production"): the
+ * user comes from a dev cookie set by the two login buttons. A production
+ * build never uses this mode (see isDevAuth in src/lib/constants.ts).
  * Mode 2: the user comes from the Supabase Auth session (Google OAuth). The
  * email must be in ALLOWED_EMAILS; any other account is rejected.
  */
