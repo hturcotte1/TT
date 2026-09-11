@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isDevAuth } from "@/lib/constants";
 
 /**
  * Refreshes the Supabase Auth session cookies (Google OAuth mode). In dev
@@ -8,7 +9,7 @@ import { NextResponse, type NextRequest } from "next/server";
 export default async function proxy(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (process.env.NEXT_PUBLIC_DEV_AUTH === "true" || !url || !anonKey) {
+  if (isDevAuth() || !url || !anonKey) {
     return NextResponse.next();
   }
 

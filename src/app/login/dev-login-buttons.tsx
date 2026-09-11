@@ -32,7 +32,7 @@ export function DevLoginButtons() {
         Continue as Marco
       </Button>
       <p className="mt-2 text-center text-xs text-muted-foreground">
-        Development login (NEXT_PUBLIC_DEV_AUTH=true)
+        Development login (NEXT_PUBLIC_DEV_AUTH=true, non-production only)
       </p>
     </div>
   );

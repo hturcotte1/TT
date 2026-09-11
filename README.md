@@ -38,6 +38,9 @@ Requirements: Node 20+, npm, Docker (for local Supabase).
    ```
 
    This runs `supabase/migrations/*.sql` and then `supabase/seed.sql`.
+   The second migration enables row-level security on every table with no
+   policies, so only the service-role client (server code) can read or
+   write data; the anon key is used for Supabase Auth only.
 
 4. Configure the environment:
 
@@ -46,9 +49,10 @@ Requirements: Node 20+, npm, Docker (for local Supabase).
    ```
 
    Fill in `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and
-   `SUPABASE_SERVICE_ROLE_KEY` from the `npx supabase start` output. Keep
-   `NEXT_PUBLIC_DEV_AUTH=true` for the development login. Set
-   `INGEST_TOKEN` to a long random string.
+   `SUPABASE_SERVICE_ROLE_KEY` from the `npx supabase start` output. Set
+   `NEXT_PUBLIC_DEV_AUTH=true` for the development login (it only works
+   under `next dev`; a production build ignores it). Set `INGEST_TOKEN` to a
+   long random string.
 
 5. Run the app:
 

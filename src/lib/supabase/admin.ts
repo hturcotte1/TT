@@ -3,7 +3,9 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 /**
  * Service-role Supabase client. Server code only — never import this from a
  * client component. All database reads and writes in TT go through this
- * client (RLS is a later task; see README).
+ * client. Row-level security is enabled on every public table with no
+ * policies, so the anon and authenticated roles can read nothing; only the
+ * service role (which bypasses RLS) reaches the data.
  */
 let client: SupabaseClient | null = null;
 

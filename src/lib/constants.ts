@@ -21,8 +21,16 @@ export const ALLOWED_EMAILS: readonly string[] = FOUNDERS.map((f) => f.email);
 
 export const DEV_AUTH_COOKIE = "tt-dev-user";
 
+/**
+ * The two-button development login. It is available only in a
+ * non-production build AND when NEXT_PUBLIC_DEV_AUTH=true. Setting the
+ * variable alone never enables it in production (NODE_ENV === "production").
+ */
 export function isDevAuth(): boolean {
-  return process.env.NEXT_PUBLIC_DEV_AUTH === "true";
+  return (
+    process.env.NODE_ENV !== "production" &&
+    process.env.NEXT_PUBLIC_DEV_AUTH === "true"
+  );
 }
 
 export const TASK_STATUSES = ["todo", "in_progress", "done"] as const;
